@@ -1,4 +1,8 @@
-
+<?php
+include "article.php";
+include "functions/bdd.php";
+include "functions/blog.php";
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,23 +27,23 @@
 		<!-- Header du site avec barre de navigation-->
 		<header>
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<a class="navbar-brand" href="#"><img src="image/logo_jean.png" alt="logo du blog Jean Forteroche" /></a>
+				<a class="navbar-brand" href="index.php"><img src="image/logo_jean.png" alt="logo du blog Jean Forteroche" /></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item active">
-							<a class="nav-link" href="index.html"><i class="fas fa-home"></i>Accueil<span class="sr-only">(current)</span></a>
+							<a class="nav-link" href="index.php"><i class="fas fa-home"></i>Accueil<span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="chapitres.html"><i class="fas fa-book-open"></i>Chapitres</a>
+							<a class="nav-link" href="chapitres.php"><i class="fas fa-book-open"></i>Chapitres</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="apropos.html"><i class="fas fa-address-card"></i>À propos</a>
+							<a class="nav-link" href="apropos.php"><i class="fas fa-address-card"></i>À propos</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i>Contact</a>
+							<a class="nav-link" href="contact.php"><i class="fas fa-envelope"></i>Contact</a>
 						</li>					
 					</ul>
 					<form class="form-inline my-2 my-lg-0">
@@ -82,7 +86,7 @@
 						<div class="face face2">
 							<div class="content_card">
 								<p>L'aventure de Carlito commence ici. Chaque semaine je publie un nouveau chapitre.</p>
-								<a href="chapitres.html">En savoir plus</a>
+								<a href="chapitres.php">En savoir plus</a>
 							</div>
 						</div>
 					</div>
@@ -98,7 +102,7 @@
 						<div class="face face2">
 							<div class="content_card">
 								<p>Ado turbulent, adulte rebel, qui suis je vraiment ? Découvre ce que j'ai décidé de faire de ma vie.</p>
-								<a href="apropos.html">En savoir plus</a>
+								<a href="apropos.php">En savoir plus</a>
 							</div>
 						</div>
 					</div>
@@ -108,13 +112,13 @@
 								<div class="logo">		
 									<i class="fas fa-comment"></i>
 								</div>	
-								<h3>Contact</h3>	
+								<h3>Commentaires</h3>	
 							</div>
 						</div>
 						<div class="face face2">
 							<div class="content_card">
 								<p>Le partage est à la base de toute relation. Je reste toujours à l'écoute de mes lecteurs.</p>
-								<a href="contact.html">En savoir plus</a>
+								<a href="contact.php">En savoir plus</a>
 							</div>
 						</div>
 					</div>
@@ -122,16 +126,30 @@
 			</div>
 		</section>
 		<!-- Section 4 poste du dernier article en php-->
+		<!-- php des articles -->
 		<section>
 			<h1 class="news">Dernier chapitre en ligne</h1>
-			<div class="article">
-				<p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam inventore molestias libero odio provident beatae, laudantium at ipsa nobis, natus veritatis amet atque sed suscipit aperiam ratione minus iste fugiat!</span>
-				<span>Numquam, sequi ex facere atque impedit suscipit rerum autem ut, molestiae vitae consectetur modi tempora vel dolores nesciunt, cum mollitia aliquid dolorum vero possimus nobis provident. Earum voluptates, quod nemo.</span>
-				<span>Atque rerum facilis quaerat totam ducimus dignissimos saepe odit odio quo laudantium, fugit quidem recusandae at excepturi quisquam minus ab dolor iure ipsum quos esse fuga eum placeat, et, beatae?</span>
-				<span>Suscipit doloremque voluptate beatae sunt sed dolorem iure quo quis esse vitae maxime optio necessitatibus nesciunt explicabo excepturi ut, id amet voluptatibus pariatur adipisci itaque animi consequuntur odit! Repellendus, libero!</span>
-				<span>Quos officia, minima sapiente quibusdam voluptatem, error repellat voluptas ut corporis ducimus! Maxime tenetur non asperiores, odio fugit sequi temporibus, deserunt, dolor ad tempore inventore! Voluptatibus repellat, quisquam dicta commodi!</span></p>
-			</div>
-		</section>
+			<?php
+			foreach ($articles as $article) :
+			?>	
+			<article class="chapter">
+				<div class="media">
+					<div class="media_heading">
+						<img src="<?= $article["image"] ;?>" class="mr-3" alt="<?= $article["image"];?>">
+					</div>
+				  	<div class="media-body">
+				  		<p class="date">Publié le : <time datetime="<?= $article["publication"]; ?>"><?= $article["publication"]; ?></time></p>
+					    <h5 class="mt-0"><?= $article["titre"];?></h5>
+					    <p><?= $article["resume"];?></p>
+					    <a href="article.php?id=<?= $article["id"];?>">Lire le chapitre</a>
+				  	</div>
+				</div>
+			</article>
+			<?php
+			endforeach;
+			?>		
+		</section> |
+
 		<!-- Footer -->
 		<footer class="page-footer font-small blue-grey lighten-5">
 			<div class="social">
@@ -149,8 +167,8 @@
 					<a class="ins-ic" href="https://www.instagram.com">
 						<i class="fab fa-instagram white-text"></i>
 					</a>
-				</div>
-			</div>
+				</div> 
+			</div> 
 			<!-- Footer liens -->
 			<div class="container text-center text-md-left mt-5">
 				<!-- Grid row -->
@@ -161,13 +179,10 @@
 						<!-- Liens à propos -->
 						<h6 class="text-uppercase font-weight-bold">À propos</h6>
 						<p>
-							<a class="dark-grey-text" href="mention.html">Mentions légales</a>
+							<a class="dark-grey-text" href="mention.php">Mentions légales</a>
 						</p>
 						<p>
-							<a class="dark-grey-text" href="politique.html">Politique de confidentialité</a>
-						</p>
-						<p>
-							<a class="dark-grey-text" href="plansite.html">Plan du site</a>
+							<a class="dark-grey-text" href="politique.php">Politique de confidentialité</a>
 						</p>
 					</div>
 					<!-- Grid column -->
@@ -175,13 +190,13 @@
 						<!-- Liens Contact -->
 						<h6 class="text-uppercase font-weight-bold">Contact</h6>
 						<p>
-							<a class="dark-grey-text" href="contact.html">Contactez-moi</a>
+							<a class="dark-grey-text" href="contact.php">Contactez-moi</a>
 						</p>
 						<p>
-							<a class="dark-grey-text" href="partenaires.html">Partenaires</a>
+							<a class="dark-grey-text" href="partenaires.php">Partenaires</a>
 						</p>
 						<p>
-							<a class="dark-grey-text" href="shop.html">Shop</a>
+							<a class="dark-grey-text" href="shop.php">Shop</a>
 						</p>
 					</div>
 					<!-- Grid column -->
@@ -189,7 +204,7 @@
 						<!-- Liens Connexion -->
 						<h6 class="text-uppercase font-weight-bold">Connexion</h6>
 						<p>
-							<a class="dark-grey-text" href="connexion.html">Administration</a>
+							<a class="dark-grey-text" href="connexion.php">Administration</a>
 						</p>
 					</div>
 				</div>
